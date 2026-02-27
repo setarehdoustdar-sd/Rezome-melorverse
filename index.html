@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+
+<script src="js/main.js" defer></script>
+<script src="user-data.js"></script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Melorverse — قالب رزومه حرفه‌ای</title>
+  <meta name="description" content="قالب رزومه فارسی Melorverse — دو تم Light/Dark — ایران‌سنس — بهینه و ریسپانسیو" />
+  <meta name="color-scheme" content="light dark">
+
+  <style>
+    /* فقط موبایل و تبلت — دسکتاپ دست نخورده می‌ماند */
+@media (max-width: 768px) {
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+    padding: 16px !important;
+    gap: 16px;
+  }
+
+  .brand {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .topnav {
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .topnav a {
+    padding: 8px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .controls {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .controls .btn {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+}
+
+
+    /* ====== فونت ایران‌سنس (اگر داری فایل، در پوشه fonts قرار بده) ====== */
+    @font-face {
+  font-family: 'IranSansX';
+  src: url('assets/fonts/font/IRANSansX-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IranSansX';
+  src: url('assets/fonts/font/IRANSansX-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'IRANSansX', Tahoma, sans-serif;
+}
+
+  
+
+
+    /* ====== متغیرهای طراحی ====== */
+    :root{
+      /* Light theme (default variables) */
+      --bg: #f8f9fb;            /* پس‌زمینه کلی لایت (سفید نرم) */
+      --card-bg: #eceff3;       /* قاب‌ها/کارت‌ها خاکستری ملایم */
+      --text: #0d1b2a;          /* متن اصلی تیره */
+      --muted: #6b7782;         /* متن کم‌رنگ */
+      --accent: #002b5b;        /* آبی نفتی (اکسن) */
+      --accent-2: #0a4a7a;
+      --glass: rgba(11,43,83,0.06);
+      --radius: 14px;
+      --container: 1150px;
+      --transition: 360ms cubic-bezier(.2,.9,.3,1);
+      --shadow-lg: 0 20px 60px rgba(2,8,18,0.08);
+      --shadow-soft: 0 8px 24px rgba(2,8,18,0.06);
+    }
+
+    /* Dark theme variables (applied via .theme-dark on body) */
+    body.theme-dark{
+      --bg: #001925;            /* پس‌زمینه آبی نفتی تیره */
+      --card-bg: #072533;       /* قاب‌ها تیره‌تر */
+      --text: #e6f3ff;          /* متن روشن */
+      --muted: #9fb6c8;
+      --accent: #1b6aa8;        /* هایلایت آبی روشن‌تر */
+      --accent-2: #3aa2ff;
+      --glass: rgba(255,255,255,0.03);
+      --shadow-lg: 0 30px 80px rgba(2,8,18,0.5);
+      --shadow-soft: 0 10px 30px rgba(2,8,18,0.38);
+    }
+
+    /* ====== ریست پایه ====== */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;padding:0;font-family: 'IRANSansX', Tahoma, sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; direction:rtl}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ====== لایه بندی مرکزی ====== */
+    .wrap{max-width:var(--container);margin:28px auto;padding:18px;display:flex;flex-direction:column;gap:28px}
+
+    /* ====== هدر استیکی بالا ====== */
+    header.header{
+      position:sticky; top:14px; z-index:120;
+      display:flex; align-items:center; gap:18px; padding:12px 16px;
+      border-radius:12px; backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--transition), background var(--transition);
+    }
+    body.theme-dark .header{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;
+      background: linear-gradient(135deg,var(--accent), var(--accent-2)); box-shadow: var(--shadow-lg);
+    }
+    .brand .title{font-weight:800;font-size:16px}
+    .brand .sub{font-size:12px;color:var(--muted)}
+
+    /* nav */
+    nav.topnav{display:flex;gap:8px;align-items:center;margin-right:auto}
+    .topnav a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:600;transition:all .18s}
+    .topnav a:hover{background:var(--glass); color:var(--text); transform:translateY(-3px)}
+    .topnav a.active{background:linear-gradient(90deg, rgba(0,43,91,0.12), rgba(10,74,122,0.06)); color:var(--accent); box-shadow:inset 0 0 0 1px rgba(255,255,255,0.015)}
+
+    /* theme switch */
+    .controls{display:flex;gap:10px;align-items:center}
+    .theme-toggle{display:inline-flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:var(--glass);cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
+    .theme-toggle .dot{width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 6px 18px rgba(11,61,102,0.16)}
+
+    /* ====== هِرو (دوستونه) ====== */
+    .hero{
+      display:grid; grid-template-columns: 420px 1fr; gap:28px; align-items:center;
+      padding:28px; border-radius:14px; background:var(--card-bg); box-shadow:var(--shadow-soft);
+      overflow:hidden;
+    }
+
+    /* کارت پروفایل (تصویر) */
+    .profile-card{display:flex;flex-direction:column;gap:12px;align-items:center;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.02)}
+    .profile-wrap{width:360px;height:420px;border-radius:12px;overflow:hidden;position:relative;transition:transform 700ms cubic-bezier(.2,.9,.3,1); box-shadow: 0 30px 70px rgba(2,8,18,0.08)}
+    .profile-wrap img{width:100%;height:100%;object-fit:cover;transform:translate3d(0,0,0); transition:transform 700ms ease}
+    .profile-wrap:hover img{transform:scale(1.04) translateY(-6px) rotate(-0.5deg)}
+
+    .profile-meta{display:flex;gap:12px;width:100%;justify-content:space-between}
+    .profile-meta .k{font-size:13px;color:var(--muted)} .profile-meta .v{font-weight:800}
+
+    /* هِرو متن */
+    .hero-right h1{margin:0;font-size:36px;line-height:1.02}
+    .hero-right h1 .name{color:var(--accent);font-weight:900}
+    .lead{margin:12px 0 18px;color:var(--muted);max-width:740px;font-size:15px}
+
+    .hero-actions{display:flex;gap:12px;align-items:center}
+    .btn{
+      background:var(--accent); color:#fff; padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:800; box-shadow:0 10px 30px rgba(11,61,102,0.12);
+      transition: transform 220ms ease, box-shadow 220ms ease;font-family: 'IranSansX', Tahoma, sans-serif;
+
+    }
+    .btn:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(11,61,102,0.18)}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+
+    /* ====== سکشن‌ها — داخل قاب خاکستری (در Light) یا تیره (در Dark) ====== */
+    .section{margin-top:28px; padding:22px; border-radius:12px; background:var(--card-bg); box-shadow:var(--shadow-soft); opacity:0; transform:translateY(18px); transition:all var(--transition)}
+    .section.visible{opacity:1; transform:none}
+    .section h3{margin:0 0 14px;font-size:18px;color:var(--text)}
+
+    /*فضای بین محتواها بیشتر  */
+    .section + .section{margin-top:36px}
+
+    /* مهارت‌ها */
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .skill{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.02)}
+    .skill .title{font-weight:800;color:var(--text);margin-bottom:10px}
+    .meter{height:12px;background:rgba(0,0,0,0.05);border-radius:8px;overflow:hidden}
+    .meter > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent), var(--accent-2)); width:70%; transition:width 800ms cubic-bezier(.2,.9,.3,1)}
+
+    /* تحصیلات/مدارک */
+    .edu-list{display:flex;flex-direction:column;gap:14px}
+    .edu-item{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:10px;background:transparent;border-left:4px solid rgba(0,0,0,0.06)}
+    .edu-item .year{min-width:110px;color:var(--muted);font-weight:800}
+
+    .certs{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .cert{padding:8px 12px;border-radius:10px;background:transparent;border:1px dashed rgba(0,0,0,0.06);color:var(--muted);font-weight:700}
+
+    /* مقالات */
+    .pub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .pub{padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.02)}
+    .pub h4{margin:0 0 8px}
+
+    /* نمونه کارها */
+  .portfolio-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.portfolio-track {
+  display: flex;
+  gap: 14px;
+  transition: transform 0.4s ease;
+  direction: ltr;
+}
+
+.proj {
+  width: calc((100% - 28px) / 3); /* دسکتاپ: 3 کارت */
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.05);
+  direction: rtl;
+}
+
+.proj img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--card-bg);
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 8px;
+  z-index: 10;
+  opacity: 0.8;
+}
+
+.prev { left: 5px; }
+.next { right: 5px; }
+
+/* تبلت */
+@media (max-width: 900px) {
+  .proj {
+    width: calc((100% - 14px) / 2); /* 2 کارت */
+  }
+}
+
+/* موبایل */
+@media (max-width: 600px) {
+  .proj {
+    width: 100%; /* 1 کارت */
+  }
+}
+
+
+
+
+    /* تماس */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:var(--text);font-family:inherit}
+    .send{background:var(--accent);color:#fff;padding:12px;border-radius:10px;border:none;font-weight:800;cursor:pointer}
+
+    /* فوتر */
+    footer{padding:18px;text-align:center;color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* ====== نمایشگرهای کوچک ====== */
+    @media (max-width:1100px){
+      .hero{grid-template-columns: 1fr; padding:18px}
+      .profile-wrap{width:320px;height:360px;margin:0 auto}
+      .skills-grid{grid-template-columns:repeat(2,1fr)}
+      .pub-grid,.portfolio-grid{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:680px){
+      .profile-wrap{width:260px;height:300px}
+      .skills-grid{grid-template-columns:1fr}
+      .topnav{display:none} /* برای موبایل منو را مخفی می‌کنیم و از هدر چسبان استفاده می‌کنیم */
+      header.header{padding:10px}
+      .brand .title{font-size:14px}
+      .hero-right h1{font-size:24px}
+    }
+
+    /* دسترسی و بهینه‌سازی‌های کوچک */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- header -->
+    <header class="header" role="banner" aria-label="هدر سایت">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">M</div>
+        <div>
+          <div class="title">Melorverse</div>
+          <div class="sub">قالب رزومه حرفه‌ای</div>
+        </div>
+      </div>
+
+      <nav class="topnav" role="navigation" aria-label="منوی اصلی">
+        <a href="#home" class="nav-link active">صفحه اصلی</a>
+        <a href="#skills" class="nav-link">مهارت‌ها</a>
+        <a href="#education" class="nav-link">تحصیلات</a>
+        <a href="#publications" class="nav-link">مقالات</a>
+        <a href="#portfolio" class="nav-link">نمونه‌کار</a>
+        <a href="#contact" class="nav-link">تماس</a>
+      </nav>
+
+      <div class="controls">
+        <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="تغییر تم">
+          <div style="font-size:12px;color:var(--muted)">تم</div>
+          <div class="dot" id="themeDot" aria-hidden="true"></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">درخواست همکاری</button>
+        </div>
+      </div>
+    </header>
+
+  <!-- Hero -->
+<section id="home" class="hero" aria-label="معرفی">
+  <div class="profile-card" aria-hidden="false">
+    <div style="font-weight:800;color:var(--muted)">پروفایل</div>
+
+    <div class="profile-wrap" id="profileWrap">
+      <img id="profileImage" src="" alt="">
+    </div>
+
+    <div style="width:100%;display:flex;justify-content:space-between;gap:10px" class="profile-meta">
+      <div style="flex:1">
+        <div class="k">تجربه</div>
+        <div class="v" id="experience"></div>
+      </div>
+      <div style="flex:1">
+        <div class="k">محل</div>
+        <div class="v" id="location"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <h1>سلام، من <span class="name" id="fullName"></span></h1>
+    <p class="lead" id="bio"></p>
+  </div>
+</section>
+
+        <div class="hero-actions">
+          <button class="btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">درخواست همکاری</button>
+          <a href="#" id="download-btn" class="btn">دانلود رزومه</a>
+          <script src="main.js"></script>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:14px;color:var(--muted);font-size:13px">
+          <div>گیت‌هاب: <a href="#" aria-label="گیت‌هاب">/mehrdad</a></div>
+          <div>لینکدین: <a href="#" aria-label="لینکدین">/mehrdad</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section" aria-label="مهارت‌ها">
+  <h3>مهارت‌ها</h3>
+  <div class="skills-grid" id="skillsGrid"></div>
+</section>
+
+
+    <!-- Education -->
+    <section id="education" class="section" aria-label="تحصیلات و مدارک">
+  <h3>تحصیلات و مدارک</h3>
+  <div class="edu-list" id="eduList"></div>
+  <div class="certs" id="certList" style="margin-top:12px"></div>
+</section>
+
+
+    <!-- Publications -->
+    <section id="publications" class="section" aria-label="مقالات">
+  <h3>مقالات و فعالیت‌های علمی</h3>
+  <div class="pub-grid" id="pubGrid"></div>
+</section>
+
+
+    <!-- Portfolio -->
+   <section id="portfolio" class="section">
+  <h3>نمونه‌کارها</h3>
+
+  <div class="portfolio-slider">
+    <button class="slider-btn prev">‹</button>
+
+    <div class="portfolio-track" id="portfolioTrack"></div>
+
+    <button class="slider-btn next">›</button>
+  </div>
+</section>
+
+
+    <!-- Contact -->
+    
+     <section id="contact" class="section" aria-label="تماس">
+  <h3>راه‌های ارتباطی</h3>
+  <div class="contact-grid">
+    
+    
+
+    <!-- اطلاعات تماس و شبکه‌ها -->
+<div style="padding:16px;border-radius:12px;background:var(--card-bg);box-shadow:var(--shadow-soft)">
+  
+  <div style="font-weight:800;font-size:15px">📧 ایمیل</div>
+  <div class="muted" style="margin-top:8px" id="email"></div>
+
+  <div style="margin-top:16px;font-weight:800;font-size:15px">🌐 شبکه‌ها</div>
+
+  <div class="muted" style="margin-top:8px">لینکدین: <a id="linkedinLink" href=""></a></div>
+  <div class="muted" style="margin-top:6px">گیت‌هاب: <a id="githubLink" href=""></a></div>
+  <div class="muted" style="margin-top:6px">تلگرام: <a id="telegramLink" href=""></a></div>
+  <div class="muted" style="margin-top:6px">اینستاگرام: <a id="instagramLink" href=""></a></div>
+
+  <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px">
+    <a class="btn ghost" id="btnLinkedin" href="">لینکدین</a>
+    <a class="btn ghost" id="btnGithub" href="">گیت‌هاب</a>
+    <a class="btn ghost" id="btnTelegram" href="">تلگرام</a>
+    <a class="btn ghost" id="btnInstagram" href="">اینستاگرام</a>
+  </div>
+
+</div>
+
+
+
+   <footer>
+  © ۲۰۲۶ Melorverse — قالب رزومه حرفه‌ای
+  <br>
+
+</footer>
+
+    
+
+  </div>
+
+  <script>
+    /* ====== Theme toggle (persistent) ====== */
+    const rootBody = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const THEME_KEY = 'melor-theme-v1';
+
+    function applyTheme(theme){
+      if(theme === 'dark'){
+        rootBody.classList.add('theme-dark');
+        rootBody.classList.add('theme-dark-mode');
+        localStorage.setItem(THEME_KEY,'dark');
+      } else {
+        rootBody.classList.remove('theme-dark');
+        localStorage.setItem(THEME_KEY,'light');
+      }
+      // move dot color (visual)
+      const dot = document.getElementById('themeDot');
+      if(dot) dot.style.background = theme === 'dark' ? 'var(--accent-2)' : 'var(--accent)';
+    }
+
+    // load saved or system
+    (function initTheme(){
+      const saved = localStorage.getItem(THEME_KEY);
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if(saved === 'dark' || (!saved && prefersDark)) applyTheme('dark'); else applyTheme('light');
+    })();
+
+    themeToggle.addEventListener('click', ()=>{
+      const isDark = document.body.classList.contains('theme-dark');
+      applyTheme(isDark ? 'light' : 'dark');
+    });
+    themeToggle.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); themeToggle.click(); } });
+
+    /* ====== Smooth nav (active link on scroll) ====== */
+    const navLinks = document.querySelectorAll('.topnav a');
+    const sections = Array.from(document.querySelectorAll('section'));
+    function setActiveLink(){
+      const fromTop = window.scrollY + 140;
+      sections.forEach((sec, idx) => {
+        if(sec.offsetTop <= fromTop && sec.offsetTop + sec.offsetHeight > fromTop){
+          navLinks.forEach(n=>n.classList.remove('active'));
+          if(navLinks[idx]) navLinks[idx].classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', setActiveLink);
+    setActiveLink();
+    navLinks.forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        document.querySelectorAll('.topnav a').forEach(x=>x.classList.remove('active'));
+        a.classList.add('active');
+        const id = a.getAttribute('href').substring(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    /* ====== Reveal animations (IntersectionObserver) ====== */
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting){ ent.target.classList.add('visible'); }
+      });
+    }, {threshold: 0.12});
+    document.querySelectorAll('.section').forEach(s=>io.observe(s));
+    // hero visible initially
+    document.querySelectorAll('.hero').forEach(h=>h.classList.add('visible'));
+
+    /* ====== Profile parallax (smooth) ====== */
+    const profWrap = document.getElementById('profileWrap');
+    if(profWrap){
+      profWrap.addEventListener('mousemove', (e)=>{
+        const rect = profWrap.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const img = profWrap.querySelector('img');
+        img.style.transform = `translate(${x*10}px, ${y*-8}px) scale(1.03) rotate(${x*-0.6}deg)`;
+      });
+      profWrap.addEventListener('mouseleave', ()=>{
+        const img = profWrap.querySelector('img');
+        img.style.transform = 'translate(0,0) scale(1) rotate(0)';
+      });
+    }
+
+    /* ====== small performance tweak: lazy load images ====== */
+    document.querySelectorAll('img').forEach(img=>{
+      if(!img.hasAttribute('loading')) img.setAttribute('loading','lazy');
+    });
+  </script>
+</body>
+</html>
+

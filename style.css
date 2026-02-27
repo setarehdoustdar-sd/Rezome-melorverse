@@ -1,0 +1,65 @@
+@font-face {
+  font-family: 'IranSansX';
+  src: url('assets/fonts/font/IRANSansX-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IranSansX';
+  src: url('assets/fonts/font/IRANSansX-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'IranSansX', Tahoma, sans-serif;
+}
+
+
+@media (max-width: 768px) {
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+    padding: 16px !important;
+    gap: 16px;
+  }
+
+  .brand {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .topnav {
+    width: 100% !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .topnav a {
+    padding: 8px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .controls {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .controls .btn {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+}
